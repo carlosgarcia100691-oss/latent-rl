@@ -1,0 +1,527 @@
+/* ============================================================
+   Dashboard de Ventaja Latente — Estilos academicos v2
+   ============================================================ */
+
+/* --- Design tokens --- */
+:root {
+  --bg:            #f4f6fb;
+  --card:          #ffffff;
+  --header-from:   #1a365d;
+  --header-to:     #2d4a7a;
+  --accent:        #3b6fd4;
+  --accent-light:  #ebf0fb;
+  --text:          #1a202c;
+  --muted:         #718096;
+  --border:        #e2e8f0;
+  --positive:      #276749;
+  --positive-bg:   #f0fff4;
+  --negative:      #c53030;
+  --negative-bg:   #fff5f5;
+  --neutral-text:  #4a5568;
+  --neutral-bg:    #f7fafc;
+  --shadow-sm:     0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md:     0 4px 12px rgba(0,0,0,0.10);
+  --radius:        8px;
+  --radius-sm:     4px;
+}
+
+/* --- Reset base --- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.header {
+  background: linear-gradient(135deg, var(--header-from) 0%, var(--header-to) 100%);
+  color: white;
+  padding: 18px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+
+.header-title {
+  font-size: 1.65em;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 0.88em;
+  opacity: 0.80;
+  font-style: italic;
+  margin-top: 4px;
+}
+
+/* ============================================================
+   CONTENEDOR PRINCIPAL
+   ============================================================ */
+.dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 24px 40px;
+}
+
+/* ============================================================
+   CARD / SECCION genérica
+   ============================================================ */
+.section {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.section-title {
+  font-size: 1.05em;
+  font-weight: 700;
+  color: var(--text);
+  border-left: 3px solid var(--accent);
+  padding-left: 10px;
+  margin-bottom: 16px;
+}
+
+/* ============================================================
+   PANEL DE CONTROL
+   ============================================================ */
+.control-section {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 14px 24px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.control-content {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.control-warning {
+  font-size: 0.80em;
+  color: #7a5800;
+  background: #fffbea;
+  border: 1px solid #f6e05e;
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  flex: 1 1 260px;
+}
+
+.control-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.control-button {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.88em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.control-button:hover:not(:disabled) { filter: brightness(1.08); transform: translateY(-1px); }
+.control-button:active:not(:disabled) { transform: translateY(0); }
+.control-button:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.control-button-primary {
+  background: var(--accent);
+  color: white;
+}
+
+.control-button-secondary {
+  background: var(--neutral-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.run-status {
+  font-size: 0.82em;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 20px;
+  background: var(--neutral-bg);
+  color: var(--muted);
+  border: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.run-status[data-status="running"]   { background: #ebf8ff; border-color: #63b3ed; color: #2b6cb0; }
+.run-status[data-status="completed"] { background: #f0fff4; border-color: #68d391; color: #276749; }
+.run-status[data-status="error"]     { background: #fff5f5; border-color: #fc8181; color: #c53030; }
+
+.run-result { font-size: 0.88em; margin-top: 6px; }
+
+.run-log {
+  background: #1a202c;
+  color: #a0aec0;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-family: 'Courier New', monospace;
+  font-size: 0.80em;
+  max-height: 240px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  margin-top: 8px;
+}
+
+/* ============================================================
+   KPI CARDS
+   ============================================================ */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.kpi-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  text-align: left;
+  box-shadow: var(--shadow-sm);
+}
+
+.kpi-title {
+  font-size: 0.75em;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.kpi-value {
+  font-size: 1.70em;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.1;
+  word-break: break-word;
+}
+
+.kpi-subtitle {
+  font-size: 0.78em;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* IVL KPI card con color semantico */
+.kpi-card-positive { border-top-color: var(--positive); }
+.kpi-card-negative { border-top-color: var(--negative); }
+.kpi-card-neutral  { border-top-color: var(--muted); }
+
+.kpi-value-positive { color: var(--positive); }
+.kpi-value-negative { color: var(--negative); }
+.kpi-value-neutral  { color: var(--neutral-text); }
+
+/* ============================================================
+   IVL SECTION
+   ============================================================ */
+.ivl-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  background: var(--card);
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.ivl-title {
+  font-size: 0.75em;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.ivl-value-container { display: flex; align-items: baseline; gap: 10px; }
+
+.ivl-value {
+  font-size: 2.8em;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.ivl-value-positive { color: var(--positive); }
+.ivl-value-negative { color: var(--negative); }
+.ivl-value-neutral  { color: var(--neutral-text); }
+
+.ivl-icon { font-size: 1.4em; }
+
+.ivl-interpretation {
+  display: inline-block;
+  font-size: 0.78em;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-top: 6px;
+  letter-spacing: 0.3px;
+}
+
+.ivl-interpretation-positive { background: var(--positive-bg); color: var(--positive); }
+.ivl-interpretation-negative { background: var(--negative-bg); color: var(--negative); }
+.ivl-interpretation-neutral  { background: var(--neutral-bg);  color: var(--neutral-text); }
+
+/* ============================================================
+   DELTA BADGES
+   ============================================================ */
+.delta-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.delta-card {
+  background: var(--neutral-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  text-align: center;
+}
+
+.delta-title {
+  font-size: 0.72em;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 4px;
+}
+
+.delta-value {
+  font-size: 1.20em;
+  font-weight: 700;
+}
+
+.delta-value-good { color: var(--positive); }
+.delta-value-bad  { color: var(--negative); }
+
+/* ============================================================
+   LAYOUT DOS COLUMNAS para graficas
+   ============================================================ */
+.chart-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 4px;
+}
+
+.chart-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.graph-container {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+/* ============================================================
+   TABLA
+   ============================================================ */
+.table-container {
+  overflow-x: auto;
+  margin-top: 4px;
+}
+
+/* dash_table styles overrides via inline */
+
+/* ============================================================
+   ALERTAS
+   ============================================================ */
+.alert {
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  border-radius: var(--radius-sm);
+  border-left: 3px solid;
+  font-size: 0.88em;
+}
+
+.alert-warning { background: #fffbea; border-color: #d69e2e; color: #7a5800; }
+.alert-success { background: var(--positive-bg); border-color: #48bb78; color: var(--positive); }
+.alert-danger  { background: var(--negative-bg); border-color: #fc8181; color: var(--negative); }
+
+.alert-title   { font-weight: 700; margin-bottom: 4px; }
+.alert-message { font-family: monospace; white-space: pre-wrap; font-size: 0.90em; }
+
+/* ============================================================
+   NOTA AUXILIAR
+   ============================================================ */
+.auxiliary-note {
+  background: #ebf8ff;
+  border-left: 3px solid #63b3ed;
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  color: #2b6cb0;
+  font-size: 0.84em;
+  margin-bottom: 12px;
+}
+
+/* ============================================================
+   NOTAS METODOLOGICAS
+   ============================================================ */
+.notes {
+  background: #fffbea;
+  border-left: 3px solid #d69e2e;
+  padding: 14px 18px;
+  border-radius: var(--radius-sm);
+}
+
+.notes h3 { color: #7a5800; margin-bottom: 8px; font-size: 0.95em; }
+.notes ul  { margin-left: 18px; color: #7a5800; }
+.notes li  { margin-bottom: 5px; font-size: 0.88em; }
+
+/* ============================================================
+   TICKER SELECTOR
+   ============================================================ */
+.ticker-selector-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 10px 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.ticker-selector-label {
+  font-size: 0.85em;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.experiment-details {
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  background: #f8faff;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 0.88em;
+}
+
+.experiment-details summary,
+.collapsible-section summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.experiment-details p { margin: 12px 0 8px; }
+.experiment-details ul { margin: 8px 0 0; padding-left: 22px; }
+.experiment-details li { margin: 7px 0; line-height: 1.45; }
+
+.inline-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 4px 0 14px;
+}
+
+.view-selector {
+  margin: 2px 0 10px;
+  color: var(--muted);
+  font-size: 0.86em;
+}
+
+.view-selector label { margin-right: 18px; }
+
+.ivl-selection-note {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.78em;
+  font-weight: 600;
+}
+
+.collapsible-section > p { margin-top: 12px; }
+
+.config-table {
+  border-collapse: collapse;
+  margin-bottom: 14px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.config-table td {
+  padding: 3px 8px 3px 0;
+  vertical-align: top;
+}
+
+.methodology-note {
+  padding: 10px 12px;
+  background: #f7fafc;
+  border-left: 3px solid var(--accent);
+  color: var(--muted);
+}
+
+/* ============================================================
+   CROSS-TICKER
+   ============================================================ */
+.cross-ticker-note {
+  font-size: 0.84em;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 12px;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+  text-align: center;
+  padding: 16px;
+  color: var(--muted);
+  font-size: 0.80em;
+  border-top: 1px solid var(--border);
+  margin-top: 8px;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  .kpi-grid    { grid-template-columns: repeat(2, 1fr); }
+  .delta-grid  { grid-template-columns: repeat(2, 1fr); }
+  .chart-grid  { grid-template-columns: 1fr; }
+  .chart-grid-3{ grid-template-columns: 1fr; }
+  .ivl-card    { flex-direction: column; gap: 16px; }
+}
+
+@media (max-width: 540px) {
+  .kpi-grid   { grid-template-columns: 1fr; }
+  .delta-grid { grid-template-columns: repeat(2, 1fr); }
+  .header     { padding: 14px 16px; }
+  .header-title { font-size: 1.3em; }
+  .dashboard-container { padding: 12px 14px 32px; }
+}
